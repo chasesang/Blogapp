@@ -1,0 +1,24 @@
+<h1><%= @post.title %></h1>
+<p><%= @post.body %></p>
+<p>Category ID: <%= @post.category_id %></p>
+<p>Category Name: <%= @post.category.name %></p>
+
+<%= link_to 'Edit', edit_post_path(@post) %>
+<%= link_to 'Delete', post_path(@post),
+                      method: :delete,
+                      data: { confirm: 'Are you sure?' } %>
+
+
+<h2>Comments</h2>
+<%= @comment.errors.full_messages.join(', ') %>
+<%= form_for [@post, @comment] do |f| %>
+  <%= f.text_area :body %>
+  <%= f.submit %>
+<% end %>
+<hr>
+<% @post.comments.each do |comment| %>
+  <p>Comments: <%= comment.body %></p>
+  <%= link_to 'Delete', post_comment_path(@post, comment),
+method: :delete,
+data: { confirm: 'Are you sure?'} %>
+<% end %>

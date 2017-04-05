@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Blog</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <%= javascript_include_tag 'application' %>
+  </head>
+
+  <body>
+
+    <%= link_to 'Welcome', root_path %>
+    |
+    <%= link_to 'New Post', new_post_path %>
+    |
+    <%= link_to 'All Posts', posts_path %>
+<hr>
+
+
+<% if flash[:notice] %>
+        <div class="flash-notice"><%= flash[:notice] %></div>
+      <% elsif flash[:alert] %>
+        <div class="flash-alert"><%= flash[:alert] %></div>
+      <% end %>
+      <%#= notice || alert %>
+
+  <%= yield %>
+</body>
+</html>
