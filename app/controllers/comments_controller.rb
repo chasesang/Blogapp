@@ -5,8 +5,10 @@ class CommentsController < ApplicationController
   comment_params = params.require(:comment).permit(:body)
   # puts review_params
 
+
       @comment = Comment.new(comment_params)
       @comment.post = @post
+      @comment.user = current_user
 
 
   # @answer = @queston.answers.build(answer_params)

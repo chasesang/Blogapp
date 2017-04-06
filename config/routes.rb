@@ -4,6 +4,11 @@ Rails.application.routes.draw do
 resources :posts do
   resources :comments, only: [:create, :destroy]
 end
-
+resources :users, only: [:new, :create]
+resources :sessions, only: [:new, :create]
+resources :sessions, only:[:new, :create] do
+     delete :destroy, on: :collection
+     #password does not show in the address url
+   end
 root 'welcome#index'
 end

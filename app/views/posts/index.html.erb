@@ -2,5 +2,6 @@
 
 <% @posts.each do |post| %>
 <%= link_to post.title, post_path(post) %>
+<p><%= post.user.first_name %></p>
 <hr>
 <% end %>
