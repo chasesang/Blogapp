@@ -6,17 +6,16 @@ end
   User.create(first_name: Faker::Name.first_name,
                 last_name: Faker::Name.last_name,
                 email: Faker::Internet.email,
-                password: '12345678',
-                password_confirmation: '12345678'
+                password: '123',
+                password_confirmation: '123'
     )
-    puts "Product created!"
   end
 
 
 100.times do
   category = Category.all.sample
    user = User.all.sample
-  Post.create({ title: Faker::Friends.character,
+  Post.create({ title: Faker::Friends.location,
                 body: Faker::Friends.quote,
                 category_id: category.id,
                 user_id: user.id

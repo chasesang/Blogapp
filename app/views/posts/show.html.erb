@@ -1,28 +1,47 @@
-<h1><%= @post.title %></h1>
-<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSL1vzy36QMG0a6iRhCMJEPJsaZB5QTP-1m_nTbEjrRFVxzIwSh"
-alt ="Post Imagine" style="width:300px; height: 200px;"
-<p><%= @post.body %></p>
-<p>Category ID: <%= @post.category_id %></p>
-<p>Category Name: <%= @post.category.name %></p>
-<p>Created On: <%= standard_date_format(@post.created_at) %></p>
 
-<%= link_to 'Edit', edit_post_path(@post) %>
-<%= link_to 'Delete', post_path(@post),
-                      method: :delete,
-                      data: { confirm: 'Are you sure?' } %>
+<div class="container">
+  <div class="posttitle">
+    <h1><%= @post.title %></h1>
+  </div>
+</div>
+<div class="row row-img"></div>
+<br><br>
 
+<div class="container">
+  <div class="postbody">
+    <p><%= @post.body %>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Category ID: <%= @post.category_id %></p>
+    <p>Category Name: <%= @post.category.name %></p>
+    <p>Created On: <%= standard_date_format(@post.created_at) %></p>
+    <p><%= link_to 'Edit', edit_post_path(@post) %>
+    <%= link_to 'Delete', post_path(@post),
+                        method: :delete,
+                        data: { confirm: 'Are you sure?' } %></p>
+  </div>
 
-<h2>Comments</h2>
-<%= @comment.errors.full_messages.join(', ') %>
-<%= form_for [@post, @comment] do |f| %>
-  <%= f.text_area :body %>
-  <%= f.submit %>
-<% end %>
-<hr>
-<% @post.comments.each do |comment| %>
-  <p>Comments: <%= comment.body %></p>
-  <p><%= comment.user.first_name %></p>
-  <%= link_to 'Delete', post_comment_path(@post, comment),
-method: :delete,
-data: { confirm: 'Are you sure?'} %>
-<% end %>
+  <div class="author">
+    <h2>Author Name</h2>
+    <p>Chase Sang</p>
+  </div>
+
+<div class="comment">
+    <h2>Comments</h2>
+
+    <%= @comment.errors.full_messages.join(', ') %>
+    <%= form_for [@post, @comment] do |f| %>
+    <div class="form-group">
+    <%= f.text_area :body %>
+    <%= f.submit %>
+    <% end %>
+
+    <hr>
+    <% @post.comments.each do |comment| %>
+    <p>Comments: <%= comment.body %></p>
+    <p><%= comment.user.first_name %></p>
+    <%= link_to 'Delete', post_comment_path(@post, comment),
+    method: :delete,
+    data: { confirm: 'Are you sure?'} %>
+    <% end %>
+  </div>
+  </div>
+</div>

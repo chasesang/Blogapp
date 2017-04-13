@@ -1,32 +1,29 @@
 class CommentsController < ApplicationController
+  before_action :authenticate_user!
+
   def create
-  @post = Post.find(params[:post_id])
+    @post = Post.find(params[:post_id])
   # puts params
-  comment_params = params.require(:comment).permit(:body)
-  # puts review_params
+    comment_params = params.require(:comment).permit(:body)
+    @comment = Comment.new(comment_params)
+    @comment.post = @post
+    @comment.user = current_user
 
-
-      @comment = Comment.new(comment_params)
-      @comment.post = @post
-      @comment.user = current_user
-
-
-  # @answer = @queston.answers.build(answer_params)
-
-  if @comment.save
-  redirect_to post_path(@post), notice: 'Comments Created!'
-  else
-
-    render '/posts/show'
-
+    if @comment.save
+      redirect_to post_path(@post), notice: 'Comments Created!'
+    else
+      render '/posts/show'
+    end
   end
 
-end
-
-def destroy
-  comment = Comment.find(params[:id])
-  comment.destroy
-  redirect_to post_path(comment.post), notice: 'Review deleted!'
-end
+  def destroy
+    comment = Comment.find(params[:id])
+    if can? :destroy, comment
+      comment.destroy
+      redirect_to post_path(comment.post), notice: 'Review deleted!'
+    else
+      redirect_to post_path(comment.post), notice: 'access denied'
+    end
+  end
 
 end

@@ -5,7 +5,7 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.last(50)
+    @posts = Post.last(6)
   end
 
   def show
@@ -27,26 +27,31 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    post = Post.find params[:id]
-    post.destroy
+    @post = Post.find params[:id]
+    if can? :destory, @post
+      @post.destroy
     redirect_to posts_path, notice: "Post deleted!"
+    else
+      redirect_to post_path(@post), alert: "access defined"
+    end
   end
 
     def edit
     @post = Post.find params[:id]
+    redirect_to root_path, alert: "access defined" unless can? :edit, @post
 
     end
 
     def update
-    @post = Post.find params[:id]
-        post_params = params.require(:post).permit([:title, :body, :category_id])
-    if @post.user != current_user
-      flash[:alert] = "You cannot change a post that you did not create"
-      redirect_to post_path(@post)
-    elsif @post.update(post_params)
-      redirect_to post_path(@post)
-    else
-      render :edit
+
+      @post = Post.find params[:id]
+      post_params = params.require(:post).permit([:title, :body, :category_id])
+      if can? :edit, @post
+        @post.update(post_params)
+        redirect_to post_path(@post), notice: 'Post updated!'
+      else
+        redirect_to post_path(@post), notice: 'access denied'
+      end
     end
-    end
+
 end

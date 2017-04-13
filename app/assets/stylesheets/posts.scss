@@ -1,3 +1,16 @@
 // Place all the styles related to the posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.row-img{
+  background-image: url("https://s-media-cache-ak0.pinimg.com/originals/82/51/7a/82517a6906184ee892ea29f9d701b071.jpg");
+  height: 200px;
+
+  img {
+
+    -width: 100px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+
+  }
+}
